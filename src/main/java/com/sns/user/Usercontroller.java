@@ -7,10 +7,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequestMapping("/user")
 @Controller
-public class Usercontroller {
+public class UserController {
+
+	/**
+	 * 회원가입 화면
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/sign-up-view")
 	public String signUpView(Model model) {
-		model.addAttribute("viewName" , "user/signUp");
+		model.addAttribute("view", "user/signUp");
+		return "template/layout";
+	}
+	
+	/**
+	 * 로그인화면
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/sign-in-view")
+	public String signInView(Model model) {
+		model.addAttribute("viewName", "user/signIn");
 		return "template/layout";
 	}
 }
+

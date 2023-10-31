@@ -18,11 +18,11 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @ToString
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Builder
-@Table(name="user")
+@Table(name = "user")
 @Entity
 public class UserEntity {
 	@Id
@@ -39,8 +39,8 @@ public class UserEntity {
 	private String email;
 	
 	@UpdateTimestamp
-	@Column(name= "createdAt", updatable = false)
-	private ZonedDateTime createAt;
+	@Column(name = "createdAt", updatable = false)
+	private ZonedDateTime createdAt;
 	
 	@UpdateTimestamp
 	@Column(name = "updatedAt")

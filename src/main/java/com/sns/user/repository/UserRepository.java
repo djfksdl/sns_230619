@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 import com.sns.user.entity.UserEntity;
 
 @Repository
-public interface UserRepository extends JpaRepository<UserEntity , Integer>{
+public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 	public UserEntity findByLoginId(String loginId);
+	
+	public UserEntity findByLoginIdAndPassword(String loginId, String password);
 }
