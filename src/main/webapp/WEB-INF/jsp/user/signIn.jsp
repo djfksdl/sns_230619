@@ -40,6 +40,15 @@ $(document).ready(function(){
 			alert("아이디를 입력하세요");
 			return false;
 		}
-	})
-})
+		if(!password){
+			alert("비밀번호를 입력하세요");
+			return false;
+		}
+		
+		//AJAX
+		//form url, params
+		let url = $(this).attr('action');
+		consol.log(url)
+	});
+});
 </script>
