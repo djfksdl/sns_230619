@@ -79,7 +79,7 @@
 					<%-- 댓글 쓰기 --%>
 					<div class="comment-write d-flex border-top mt-2">
 						<input type="text" class="form-control border-0 mr-2 comment-input" placeholder="댓글 달기"/> 
-						<button type="button" class="comment-btn btn btn-light" data-post-id="${card.post.id}">게시</button>
+						<button type="button" class="comment-btn btn btn-light">게시</button>
 					</div>
 				</div> <%--// 댓글 목록 끝 --%>
 			</div> <%--// 카드1 끝 --%>
@@ -87,6 +87,7 @@
 		</div> <%--// 타임라인 영역 끝  --%>
 	</div> <%--// contents-box 끝  --%>
 </div>
+
 
 <script>
 $(document).ready(function() {
@@ -165,5 +166,21 @@ $(document).ready(function() {
 			}
 		});  // --- ajax 끝
 	});
+	//댓글쓰기
+	$('.comment-btn').on('click', function(){
+		//ajax
+		let postId = $(this).data('post-id'); // data-post-id=13
+		//alert(postId)
+		
+		//댓글 내용 가져오기
+		// 1) 
+		//let content = $(this).siblings("input").val().trim();
+	
+		// 2)
+		let content = $(this).prev().val().trim();
+		// alert(content);
+		
+		
+	})
 });
 </script>

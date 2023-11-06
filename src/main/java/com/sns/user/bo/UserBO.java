@@ -10,7 +10,10 @@ import com.sns.user.repository.UserRepository;
 public class UserBO {
 	@Autowired
 	private UserRepository userRepository;
-
+	
+	public UserEntity getUserEntityById(int userId) {
+		return userRepository.findById(userId).orElse(null);
+	}
 	public UserEntity getUserEntityByLoginId(String loginId) {
 		return userRepository.findByLoginId(loginId);
 	}
