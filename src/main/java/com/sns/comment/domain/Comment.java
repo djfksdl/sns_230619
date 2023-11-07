@@ -1,15 +1,15 @@
 package com.sns.comment.domain;
 
-import com.sns.user.entity.UserEntity;
+import java.util.Date;
 
 import lombok.Data;
 
-// 한개의 댓글
 @Data
 public class Comment {
-	// 댓글 내용, 댓글쓴이
-	
-	private Comment comment;
-	
-	private UserEntity user;
+	private int id;
+	private int postId;
+	private int userId;
+	private String content;
+	private Date createdAt;
+	private Date updatedAt;
 }

@@ -1,0 +1,11 @@
+package com.sns.like.mapper;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface LikeMapper {
+	public List<Map<String, Object>> selectLikeList();
+}

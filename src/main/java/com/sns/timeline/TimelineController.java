@@ -8,16 +8,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.sns.timeline.bo.TimelineBO;
-import com.sns.timeline.damain.CardView;
+import com.sns.timeline.domain.CardView;
 
 @Controller
 public class TimelineController {
 	@Autowired
 	private TimelineBO timelineBO;
-	
+
 	@GetMapping("/timeline/timeline-view")
 	public String timelineView(Model model) {
 		List<CardView> cardViewList = timelineBO.generateCardViewList();
+		
 		model.addAttribute("cardList", cardViewList);
 		model.addAttribute("viewName", "timeline/timeline");
 		return "template/layout";
