@@ -51,7 +51,8 @@ public class TimelineBO {
 			cardView.setCommentList(commentList);
 			
 			// 좋아요 카운트
-			
+			int likeCount = likeBO.getLikeCountByPodtId(post.getId());
+			cardView.
 			// 내가 좋아요 눌렀는지 여부
 			
 			//★★★★★ 마지막에 CardViewList에 card를 넣는다.
