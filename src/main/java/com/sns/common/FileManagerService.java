@@ -6,25 +6,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-<<<<<<< HEAD
-=======
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
->>>>>>> parent of fe27d58 (Revert "삭제됨?")
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 @Component // 일반적인 spring bean
 public class FileManagerService {
-<<<<<<< HEAD
-	// 실제 업로드가 된 이미지가 저장될 경로(서버)
-	public static final String FILE_UPLOAD_PATH = "D:\\이연수\\6.Spring_Project\\sns\\workspace\\images/";
-=======
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	// 실제 업로드가 된 이미지가 저장될 경로(서버)
-	public static final String FILE_UPLOAD_PATH = "D:\\신보람\\5_spring_project\\sns\\workspace\\images/";
->>>>>>> parent of fe27d58 (Revert "삭제됨?")
+	public static final String FILE_UPLOAD_PATH = "D:\\이연수\\6.Spring_Project\\sns\\workspace\\images/";
 
 	// input: userLoginId, file(이미지) output: web imagePath
 	public String saveFile(String loginId, MultipartFile file) {
@@ -55,8 +47,6 @@ public class FileManagerService {
 		// /images/aaaa_178945646/sun.png
 		return "/images/" + directoryName + "/" + file.getOriginalFilename();
 	}
-<<<<<<< HEAD
-=======
 
 	// 파일 삭제 메소드
 	// input: imagePath
@@ -85,5 +75,4 @@ public class FileManagerService {
 			}
 		}
 	}
->>>>>>> parent of fe27d58 (Revert "삭제됨?")
 }

@@ -2,33 +2,23 @@ package com.sns.post.bo;
 
 import java.util.List;
 
-<<<<<<< HEAD
-=======
 import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
->>>>>>> parent of fe27d58 (Revert "삭제됨?")
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-<<<<<<< HEAD
-import com.sns.common.FileManagerService;
-=======
 import com.sns.comment.bo.CommentBO;
 import com.sns.common.FileManagerService;
 import com.sns.like.bo.LikeBO;
->>>>>>> parent of fe27d58 (Revert "삭제됨?")
 import com.sns.post.entity.PostEntity;
 import com.sns.post.repository.PostRepository;
 
 @Service
 public class PostBO {
-<<<<<<< HEAD
-=======
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
->>>>>>> parent of fe27d58 (Revert "삭제됨?")
 	
 	@Autowired
 	private PostRepository postRepository;	
@@ -36,15 +26,12 @@ public class PostBO {
 	@Autowired
 	private FileManagerService fileManager;
 	
-<<<<<<< HEAD
-=======
 	@Autowired
 	private CommentBO commentBO;
 	
 	@Autowired
 	private LikeBO likeBO;
 	
->>>>>>> parent of fe27d58 (Revert "삭제됨?")
 	// input: X     output: List<PostEntity>
 	public List<PostEntity> getPostList() {
 		return postRepository.findAllByOrderByIdDesc();
@@ -65,8 +52,6 @@ public class PostBO {
 				.imagePath(imagePath)
 				.build());
 	}
-<<<<<<< HEAD
-=======
 	
 	// 글 삭제
 	@Transactional
@@ -92,5 +77,4 @@ public class PostBO {
 		// db 좋아요
 		likeBO.deleteLikeByPostId(postId);
 	}
->>>>>>> parent of fe27d58 (Revert "삭제됨?")
 }

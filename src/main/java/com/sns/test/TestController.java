@@ -13,39 +13,40 @@ import com.sns.post.mapper.PostMapper;
 
 @Controller
 public class TestController {
+
 	@Autowired
 	PostMapper postMapper;
-	//1. string + response body - >html
+	
+	// 1. string + response body -> html
 	@ResponseBody
 	@GetMapping("/test1")
 	public String test1() {
-		return "hello world";
+		return "Hello world";
 	}
 	
-	//2. map + response body -> json
+	// 2. map + response body -> json
 	@ResponseBody
 	@GetMapping("/test2")
-	public Map<String , Object> test2(){
-		Map<String , Object> map = new HashMap<>();
+	public Map<String, Object> test2() {
+		Map<String, Object> map = new HashMap<>();
 		map.put("a", 100);
 		map.put("b", 200);
 		return map;
 	}
 	
-	
-	//3. JSP -> html
-	//build.gradel 2줄 추가
-	// 폴더 만들기 src/main/webapp/WEB-INF/jsp
-	// application.yml  prifix, suffix
+	// 3. JSP   -> html
+	// build.grade 2줄 추가
+	// 폴더 만들기  src/main/webapp/WEB-INF/jsp
+	// application.yml  prefix, suffix
 	@GetMapping("/test3")
 	public String test3() {
-//		src/main/webapp/WEB-INF/jsp
+		// src/main/webapp/WEB-INF/jsp/test/test.jsp
 		return "test/test";
 	}
 	
-	//4. DB 연동 resopnse body -> json
-	// SnsApplicationDb설정 안보는 설정 제거
-	// DatabaeConfig 클래스 추가
+	// 4. DB 연동 response body -> json 
+	// SnsApplication DB 설정 안 보는 설정 제거
+	// DatabaseConfig 클래스 추가
 	// application.yml DB 접속 정보 추가
 	
 	// resources/mappers xml
@@ -53,7 +54,6 @@ public class TestController {
 	@ResponseBody
 	@GetMapping("/test4")
 	public List<Map<String, Object>> test4() {
-		return postMapper.selectPostList(); // json
+		return postMapper.selectPostList();
 	}
-
 }

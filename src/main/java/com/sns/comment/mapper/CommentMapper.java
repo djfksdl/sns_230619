@@ -18,9 +18,9 @@ public interface CommentMapper {
 	public List<Comment> selectCommentListByPostId(int postId);
 	
 	public void deleteCommentById(int id);
-<<<<<<< HEAD
-=======
+//<<<<<<< HEAD
+//=======
 	
 	public void deleteCommentsByPostId(int postId);
->>>>>>> parent of fe27d58 (Revert "삭제됨?")
+//>>>>>>> parent of fe27d58 (Revert "삭제됨?")
 }

@@ -34,9 +34,12 @@
 				<div class="p-2 d-flex justify-content-between">
 					<span class="font-weight-bold">${card.user.loginId}</span>
 					
-					<a href="#" class="more-btn">
+					<%-- 더보기(내가 쓴 글일 때만 노출- 삭제 또는 수정) --%>
+					<c:if test="${userId eq card.user.id}">
+					<a href="#" class="more-btn" data-toggle="modal" data-target="#modal" data-post-id="${card.post.id}">
 						<img src="https://www.iconninja.com/files/860/824/939/more-icon.png" width="30">
 					</a>
+					</c:if>
 				</div>	
 				
 				<%-- 카드 이미지 --%>
@@ -46,18 +49,20 @@
 				
 				<%-- 좋아요 --%>
 				<div class="card-like m-3">
-					<%-- 빈하트:1) 비로그인 2) 좋아요를 누르지 않았을때 && --%>
-					<c:if test="${empty userId}">
-						<a href="#" class="like-btn" data-post-id="${card.post.postId }">
-							<img src="https://www.iconninja.com/files/214/518/441/heart-icon.png" width="18" height="18" alt="empty heart">
-						</a>
+					<%-- 빈하트: 1) 비로그인 2) 좋아요를 누르지 않았을 때 && 로그인 --%>
+					<c:if test="${card.filledLike eq false}">
+					<a href="#" class="like-btn" data-post-id="${card.post.id}">
+						<img src="https://www.iconninja.com/files/214/518/441/heart-icon.png" width="18" height="18" alt="empty heart">
+					</a>
 					</c:if>
-					<%-- 채워진 하트: 로그인 && 좋아요 눌렀을때 --%>
-					<c:if test="${not empty userId}">
-						<a href="#" class="like-btn" data-post-id="${card.post.postId }">
-							<img src="https://www.iconninja.com/files/214/518/441/heart-icon.png" width="18" height="18" alt="filled heart">
-						</a>
+					
+					<%-- 채워진 하트: 로그인 && 좋아요 눌렀을 때 --%>
+					<c:if test="${card.filledLike eq true}">
+					<a href="#" class="like-btn" data-post-id="${card.post.id}">
+						<img src="https://www.iconninja.com/files/527/809/128/heart-icon.png" width="18" height="18" alt="filled heart">
+					</a>
 					</c:if>
+					
 					좋아요 ${card.likeCount}개
 				</div>
 				
@@ -101,6 +106,23 @@
 		</div> <%--// 타임라인 영역 끝  --%>
 	</div> <%--// contents-box 끝  --%>
 </div>
+
+<!-- 모달창 -->
+<div class="modal fade" id="modal">
+	<%-- modal-sm:작은 모달, modal-dialog-centered:수직 기준 가운데 --%>
+	<div class="modal-dialog modal-dialog-centered modal-sm">
+		<div class="modal-content text-center">
+      		<div class="py-3 border-bottom">
+      			<a href="#" id="deletePostLink">삭제하기</a>
+      		</div>
+      		<div class="py-3">
+      			<a href="#" data-dismiss="modal">취소하기</a>
+      		</div>
+		</div>
+	</div>
+</div>
+
+
 
 <script>
 $(document).ready(function() {
@@ -241,33 +263,69 @@ $(document).ready(function() {
 			}
 		});
 	});
+	
 	// 좋아요/해제
-	$('.like-btn').on('click',function(e){
+	$('.like-btn').on('click', function(e) {
 		e.preventDefault();
-		//alert('라이크')
+		//alert("라이크");
+		
 		let postId = $(this).data("post-id");
+		//alert(postId);
 		
 		$.ajax({
-			//request
-			//type:"GET"
+			// request
 			url: "/like/" + postId
-			//, data는 쓸필요가없다. 쓰면 뒤에 더 붙기때문에 뺴기 
-			//response
-			, success: function(data){
-				if(data.code == 200){
-					location.reload(true); //새로고침 -> timeline 다시 가져옴 -> 하트 채워지거나 or 비워지거나
-				} else if(data.code == 500){
-					//비로그인 상태
+			
+			// response
+			, success:function(data) {
+				if (data.code == 200) {
+					location.reload(true); // 새로고침 => timeline 다시 가져옴 -> 하트 채워지거나 or 비워지거나
+				} else if (data.code == 500) {
+					// 비로그인 상태
 					alert(data.errorMessage);
-					location.href = "/user/sign-in-view"; //로그인 페이지로 이동
+					location.href = "/user/sign-in-view"; // 로그인 페이지로 이동
 				}
 			}
-			,error: function(request, status, error){
-				alert("좋아요 하는데 실패했습니다.")
+			, error:function(request, status, error) {
+				alert("좋아요 하는데 실패했습니다.");
 			}
-		})
-		
-	})
+		});
+	});
 	
+	// 글 삭제(... 더보기 버튼 클릭) => 모달 띄우기 => 모달에 글번호 세팅
+	$(".more-btn").on("click", function(e) {
+		e.preventDefault(); // a 태그 올라가는 현상 방지
+		
+		let postId = $(this).data("post-id"); // ... 버튼에 넣어둔 글 번호 getting
+		//alert(postId);
+		
+		// 1개인 모달 태그에 재활용. data-post-id를 심어줌
+		$("#modal").data("post-id", postId); // 모달 태그에 setting
+	});
+	
+	// 모달 안에 있는 삭제하기 클릭 => 진짜 삭제
+	$("#modal #deletePostLink").on("click", function(e) {
+		e.preventDefault();
+		
+		let postId = $("#modal").data("post-id"); // getting
+		//alert(postId);
+		
+		// ajax 글 삭제 요청
+		$.ajax({
+			type:"delete"
+			, url:"/post/delete"
+			, data: {"postId":postId}
+			, success: function(data) {
+				if (data.code == 200) {
+					location.reload(true);
+				} else {
+					alert(data.errorMessage);
+				}
+			}
+			, error: function(e) {
+				alert("삭제하는데 실패했습니다. 관리자에게 문의해주세요.");
+			}
+		});
+	});
 });
 </script>
