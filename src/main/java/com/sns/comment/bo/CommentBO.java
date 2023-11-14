@@ -55,4 +55,11 @@ public class CommentBO {
 	public void deleteCommentById(int id) {
 		commentMapper.deleteCommentById(id);
 	}
+<<<<<<< HEAD
+=======
+	
+	public void deleteCommentsByPostId(int postId) {
+		commentMapper.deleteCommentsByPostId(postId);
+	}
+>>>>>>> parent of fe27d58 (Revert "삭제됨?")
 }

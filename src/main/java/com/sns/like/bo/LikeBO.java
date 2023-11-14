@@ -40,4 +40,11 @@ public class LikeBO {
 		// 0보다 큰 경우 있음(채운다 true)   그렇지 않으면 false(빈 하트)
 		return likeMapper.selectLikeCountByPostIdOrUserId(postId, userId) > 0;
 	}
+<<<<<<< HEAD
+=======
+	
+	public void deleteLikeByPostId(int postId) {
+		likeMapper.deleteLikeByPostId(postId);
+	}
+>>>>>>> parent of fe27d58 (Revert "삭제됨?")
 }

@@ -23,5 +23,9 @@ public interface LikeMapper {
 			@Param("postId") int postId,
 			@Param("userId") int userId);
 	
+<<<<<<< HEAD
 	
+=======
+	public void deleteLikeByPostId(int postId);
+>>>>>>> parent of fe27d58 (Revert "삭제됨?")
 }
